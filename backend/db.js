@@ -43,6 +43,5 @@ UserSchema.methods.validatePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password_hash);
 };
 
-// Export the User model directly
 const User = mongoose.model("Users", UserSchema);
 module.exports=User
