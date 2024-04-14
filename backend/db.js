@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-mongoose.connect("mongodb://localhost:27017/paytm");
+mongoose.connect("mongodb+srv://rohitbarada:HelloMongoDB@admin.x6hrnus.mongodb.net/paytm");
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -32,6 +32,13 @@ const UserSchema = mongoose.Schema({
     minLength: 6
   }
 });
+const AccountSchema = mongoose.Schema({
+    userId :{
+      type : mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    balance: Number
+}) 
 
 UserSchema.methods.createHash = async function (plainTextPassword) {
   const saltRounds = 10;
@@ -44,4 +51,8 @@ UserSchema.methods.validatePassword = async function (candidatePassword) {
 };
 
 const User = mongoose.model("Users", UserSchema);
-module.exports=User
+const Account = mongoose.model("Account", AccountSchema);
+module.exports={
+  User,
+  Account
+}

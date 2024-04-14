@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../db");
+const {User,Account} = require("../db");
 const zod = require("zod");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = require("../config");
 const authMiddleware = require("../middleware/authMiddleware");
+
 const signUp = zod.object({
   email: zod.string().email(),
   firstName: zod.string(),
@@ -49,7 +50,11 @@ router.post("/signup", async (req, res) => {
 
     newUser.password_hash = hashedPassword;
 
-    await newUser.save();
+    const userId = await newUser.save();
+    Account.create({
+      userId: userId._id,
+      balance: parseInt(Math.random()*10000)
+    })
     const token = jwt.sign({ username: body.email }, JWT_SECRET);
     return res.status(201).json({
       message: "User created successfully.",
