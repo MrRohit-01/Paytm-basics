@@ -24,6 +24,22 @@ const updateSchema = zod.object({
 const prodSchema = zod.string().min(5);
 const firstSchema = zod.string().min(5);
 
+router.get("/me", async (req, res) => {
+  const auth = req.headers.authorization;
+  const token = auth.split(" ")[1]
+  try {
+    const userEmail = jwt.decode(token);
+    const userDetails = await User.findOne({
+      Email : userEmail.email
+    });
+    res.json({
+      userDetails,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.post("/signup", async (req, res) => {
   const body = req.body;
   const { success } = signUp.safeParse(body);
@@ -119,7 +135,7 @@ router.put("/update", authMiddleware, async (req, res) => {
     });
   }
 });
-router.get("/bulk", authMiddleware,async (req, res) => {
+router.get("/bulk", authMiddleware, async (req, res) => {
   const filter = req.query.filter || "";
 
   // You should make string 'param' as ObjectId type. To avoid exception,
@@ -130,15 +146,15 @@ router.get("/bulk", authMiddleware,async (req, res) => {
       { firstName: new RegExp(".*" + filter + ".*") },
       { lastName: new RegExp(".*" + filter + ".*") },
     ],
-  }); 
-  let Alldata = []
-  filterData.map((data,index) => {
-    Alldata[index] ={
+  });
+  let Alldata = [];
+  filterData.map((data, index) => {
+    Alldata[index] = {
+      id:data._id,
       email: data.email,
-      firstame: data.firstName,
-      lastName:data.lastName,
-    }
-    
+      firstName: data.firstName,
+      lastName: data.lastName,
+    };
   });
   res.json(Alldata);
 });

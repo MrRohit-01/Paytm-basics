@@ -5,6 +5,8 @@ const authMiddleware = require("../middleware/authMiddleware");
 const { default: mongoose } = require("mongoose");
 const router = Router();
 
+
+
 router.get("/balance", authMiddleware, async (req, res) => {
   const email = req.email;
   const user = await User.findOne({ email: email });

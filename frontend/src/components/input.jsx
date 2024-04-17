@@ -1,4 +1,4 @@
-export const InputFeild = ({type,name,label,placeholder})=>{
+export const InputFeild = ({type,name,label,placeholder,onChange})=>{
   return <>
       <label htmlFor={name}>{label}</label>
                 <br />
@@ -8,6 +8,7 @@ export const InputFeild = ({type,name,label,placeholder})=>{
                   id={name}
                   name={name}
                   placeholder={placeholder}
+                  onChange={onChange}
                   className="border-2 rounded-lg w-full p-2 text-lg font-medium"
                   required
                 /></div>
