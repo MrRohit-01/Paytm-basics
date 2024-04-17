@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route,useNavigate } from "react-router-dom";
 import { SignUp } from "./routes/signup";
-import { SignIn } from "./routes/signin";
+import { LogIn } from "./routes/login";
 import Dashboard from "./routes/dashbord";
-import { Send } from "./routes/send";
+import { TransferMoney } from "./routes/send";
 function App() {
   const userName = "Rohit";
   const balance = "10000";
@@ -12,11 +12,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/signin" element={<SignIn/>}/>
+          <Route path="/login" element={<LogIn/>}/>
           <Route path="/dashboard" userName={userName}
           balance={balance} users={Users}
           element={<Dashboard/>}/>
-          <Route path="/send" element={<Send/>}/>
+          <Route path="/transfer"  element={<TransferMoney firstName={"rohit"}/>}/>
   
         </Routes>
       </BrowserRouter>

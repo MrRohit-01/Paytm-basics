@@ -35,9 +35,11 @@ const UserSchema = mongoose.Schema({
 const AccountSchema = mongoose.Schema({
     userId :{
       type : mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required : true
     },
-    balance: Number
+    balance: Number,
+    required:true
 }) 
 
 UserSchema.methods.createHash = async function (plainTextPassword) {
