@@ -1,7 +1,7 @@
-  import React from 'react';
 
   const ProfileAvatar = ({ name, bgColor }) => {
     // Extract the first letter of the name
+    // eslint-disable-next-line react/prop-types
     const initials = name ? name.charAt(0).toUpperCase() : '';
 
     return (

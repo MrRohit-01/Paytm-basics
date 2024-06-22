@@ -1,13 +1,13 @@
 import axios from 'axios';
 import ProfileAvatar from './profile';
-import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [userData,setUserData] = useState([]);
   const [balance,setBalance] = useState([]);
   const [users,setUsers]= useState([])
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
  useEffect(() => {
   const fetchData = async () => {
     try {
@@ -16,7 +16,7 @@ const Dashboard = () => {
           Authorization: "Bearer " + localStorage.getItem("token")
         }
       });
-      setUserData(responseUser.data);
+      setUserData(responseUser.data.userDetails);
 
       const responseBalance = await axios.get("http://localhost:3000/api/v1/account/balance", {
         headers: {
@@ -46,7 +46,7 @@ const filteredUsers = users.filter(user => user.id !== userData.id);
         <div className='text-3xl font-semibold'>Payments App </div>
         {/* User profile section */}
         <div className="flex items-center">
-          <div> Hello,{userData.firstName}</div>
+          <div className='pr-2'> Hello, {userData.firstName} </div>
           <ProfileAvatar name={userData.firstName} bgColor='bg-blue-500'></ProfileAvatar>
         </div>
       </div>
@@ -63,7 +63,7 @@ const filteredUsers = users.filter(user => user.id !== userData.id);
         <input type="text" placeholder="Search Users..." className="border border-gray-400 rounded-s rounded-lg p-2 w-full mt-4 mb-4" />
        
         {filteredUsers.map((user)=>{
-          return (<> <div key={user.id} className="flex items-center justify-between border-gray-400 py-2">
+          return (<> <div key={user.id} className="flex items-center max-sm:flex-col max-sm:border rounded-xl  mb-2 justify-between border-gray-400 py-2">
             <div className="flex items-center">
             <ProfileAvatar name={user.firstName} bgColor='bg-blue-500'></ProfileAvatar>
               <div>
@@ -72,8 +72,8 @@ const filteredUsers = users.filter(user => user.id !== userData.id);
               </div>
             </div>
             <button  onClick={()=>{
-              Navigate("/transfer?to="+user.id+"&name="+user.firstName)
-            }} className="bg-black font-medium text-white px-4 py-2 rounded">Send Money</button>
+              navigate("/transfer?to="+user.id+"&name="+user.firstName)
+            }} className="bg-black font-medium text-white px-4 my-4 py-2 rounded">Send Money</button>
           </div></>)
         })}
       </div>
