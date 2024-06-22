@@ -43,18 +43,20 @@ router.get("/me", async (req, res) => {
 router.post("/signup", async (req, res) => {
   const body = req.body;
   const { success } = signUp.safeParse(body);
+  console.log(success)
   if (!success) {
     res.json({
       msg: "Enter vaild details",
     });
-    res.end();
+    return;  
   }
+console.log("ddd")
   const existUser = await User.findOne({ email: body.email });
   if (existUser) {
     res.json({
       msg: "email already exist",
     });
-    res.end();
+    return;  
   } else {
     const newUser = new User({
       email: body.email,

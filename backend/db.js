@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-mongoose.connect("mongodb+srv://rohitbarada:HelloMongoDB@admin.x6hrnus.mongodb.net/paytm");
+mongoose.connect("mongodb+srv://rohitbarada:HelloMongoDB@admin.x6hrnus.mongodb.net/paytm").then(()=>{
+  console.log("connected sucessfully")
+}).catch((e)=>{
+  console.log(e)
+});
 
 const UserSchema = mongoose.Schema({
   email: {
