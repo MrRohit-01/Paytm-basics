@@ -11,7 +11,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/" element={<SignUp/>}/>
           <Route path="/login" element={<LogIn/>}/>
           <Route path="/dashboard" userName={userName}
           balance={balance} users={Users}

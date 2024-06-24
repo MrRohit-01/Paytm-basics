@@ -30,7 +30,7 @@ export const LogIn = ()=>{
              <ButtonSumit label={"Login"}/>
             </div></div>
           </div>
-          <Warning text={"Don't have an account?"} button={'Sign Up'} path={"/signup"}/>
+          <Warning text={"Don't have an account?"} button={'Sign Up'} path={"/"}/>
         </div>
       </div>
     </>
