@@ -73,7 +73,7 @@ console.log("ddd")
       userId: userId._id,
       balance: parseInt(Math.random() * 10000),
     });
-    const token = jwt.sign({ username: body.email }, JWT_SECRET);
+    const token = jwt.sign({ email: body.email }, JWT_SECRET);
     return res.status(201).json({
       message: "User created successfully.",
       token,
@@ -100,7 +100,7 @@ router.post("/signin", async (req, res) => {
     const hashedPassword = await user.validatePassword(body.password);
 
     if (hashedPassword) {
-      const token = jwt.sign({ username: body.email }, JWT_SECRET);
+      const token = jwt.sign({ email: body.email }, JWT_SECRET);
       return res.status(201).json({
         token,
       });
