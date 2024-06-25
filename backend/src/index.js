@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require("cors")
-const routerSchema = require("./routes/index")
+const routerSchema = require("./routes/index.mjs")
 const userRouter = require("./routes/user")
-const accountRouter = require("./routes/account")
+const accountRouter = require("./routes/account.mjs")
  app.use(express.json())
  app.use(cors())
 app.use("/api/v1",routerSchema);
