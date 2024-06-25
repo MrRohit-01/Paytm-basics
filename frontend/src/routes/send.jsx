@@ -20,7 +20,6 @@ export const TransferMoney = () => {
           <div>
             <div className=" mx-32 my-10">
               <Heading>Send Money</Heading>
-              {console.log(name)}
             </div>
             <div className="px-7">
               <div className="flex items-center mb-4 gap-5  ">

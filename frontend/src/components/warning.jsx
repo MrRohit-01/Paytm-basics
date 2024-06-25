@@ -5,7 +5,7 @@ export const Warning = ({ text,button,path})=>{
         <p className="text-center pb-6">
             {text}{" "}
             <button className="underline">
-              <Link to={path}>Login</Link>{" "}
+              <Link to={path}>{button}</Link>{" "}
             </button>
           </p>
     </>

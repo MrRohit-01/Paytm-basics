@@ -13,21 +13,21 @@ const Dashboard = () => {
     try {
       const responseUser = await axios.get("https://paytm-basics.onrender.com/api/v1/user/me", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
+          authorization: "Bearer " + localStorage.getItem("token")
         }
       });
       setUserData(responseUser.data.userDetails);
 
       const responseBalance = await axios.get("https://paytm-basics.onrender.com/api/v1/account/balance", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
+          authorization: "Bearer " + localStorage.getItem("token")
         }
       });
       setBalance(responseBalance.data);
 
       const responseUsers = await axios.get("https://paytm-basics.onrender.com/api/v1/user/bulk", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
+          authorization: "Bearer " + localStorage.getItem("token")
         }
       });
       setUsers(responseUsers.data);

@@ -67,14 +67,15 @@ export const SignUp = () => {
     </>
   );
   async function HandlerSignup(){
-  const response =await axios.post("https://paytm-basics.onrender.com/api/v1/user/signup",{
-    firstName,
-    lastName,
-    email,
-    password
-    
-  });
-  if(response.data.token){
+    const response =await axios.post("https://paytm-basics.onrender.com/api/v1/user/signup",{
+      firstName,
+      lastName,
+      email,
+      password
+      
+    });
+    if(response.data.token){
+    localStorage.clear();
     navigate("/dashboard")
     localStorage.setItem("token",response.data.token)
   }
