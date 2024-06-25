@@ -15,8 +15,8 @@ export const LogIn = ()=>{
   return (
     <>
       <div className="flex justify-center items-center h-screen bg-[#ececec]">
-        <div className="border bg-[#ffffff] rounded-lg">
-        <div className=" mx-12  ">
+        <div className="border bg-[#ffffff] rounded-lg ">
+        <div className=" sm:mx-12  ">
          <Heading>LOGIN</Heading>
           <SubTitle>
             Enter your credentials to access your account

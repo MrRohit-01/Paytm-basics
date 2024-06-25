@@ -15,13 +15,13 @@ export const SignUp = () => {
   return (
     <>
       <div className="flex justify-center items-center h-screen bg-[#ececec]">
-        <div className="border bg-[#ffffff] rounded-lg">
-          <div className=" mx-12  ">
+        <div className="border bg-[#ffffff] rounded-lg ">
+          <div className=" sm:mx-12 ">
             <Heading>SIGNUP</Heading>
-            <SubTitle>Enter your informatiopn to create an account</SubTitle>
+            <SubTitle>Enter your informatiopn to create an <br/> account</SubTitle>
           </div>
 
-          <div className="text-lg font-semibold p-3 pt-5 pb-3 px-4">
+          <div className="text-lg font-semibold px-4">
             <div className="input-group w-full ">
               <InputFeild
                 type={"text"}
@@ -54,8 +54,9 @@ export const SignUp = () => {
               />
             </div>
           </div>
-
-          <ButtonSumit label={"Signup"}  onClick={HandlerSignup}/>
+        
+          <ButtonSumit label={"Signup"} onClick={HandlerSignup}/>
+      
           <Warning
             text={"Already have an Account? "}
             button={"Login"}
