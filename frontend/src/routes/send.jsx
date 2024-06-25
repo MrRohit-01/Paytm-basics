@@ -55,7 +55,7 @@ export const TransferMoney = () => {
   );
   async function response() {
     const responseData = await axios.post(
-      "http://localhost:3000/api/v1/account/transfer",
+      "https://paytm-basics.onrender.com/api/v1/account/transfer",
       {
         to:toId,
         amount: amount
