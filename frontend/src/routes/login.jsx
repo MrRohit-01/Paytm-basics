@@ -43,15 +43,18 @@ export const LogIn = ()=>{
     </>
   );
   async function HandlerLogin(){
-    const response =await axios.post("https://paytm-basics.onrender.com/api/v1/user/signin",{
+    const response =await axios.post("http://localhost:3000/api/v1/user/signin",{
       email,
       password
       
     });
+    console.log(response)
+
     if(response.data.token){
-      localStorage.clear()
-      localStorage.setItem("token",response.data.token)
       navigate("/dashboard")
+      localStorage.setItem("token",response.data.token)
+      alert(response.data.msg)
+
     }
     else{
       alert(response.data.msg)

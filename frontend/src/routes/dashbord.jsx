@@ -11,21 +11,21 @@ const Dashboard = () => {
  useEffect(() => {
   const fetchData = async () => {
     try {
-      const responseUser = await axios.get("https://paytm-basics.onrender.com/api/v1/user/me", {
+      const responseUser = await axios.get("http://localhost:3000/api/v1/user/me", {
         headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }
       });
       setUserData(responseUser.data.userDetails);
 
-      const responseBalance = await axios.get("https://paytm-basics.onrender.com/api/v1/account/balance", {
+      const responseBalance = await axios.get("http://localhost:3000/api/v1/account/balance", {
         headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }
       });
       setBalance(responseBalance.data);
 
-      const responseUsers = await axios.get("https://paytm-basics.onrender.com/api/v1/user/bulk", {
+      const responseUsers = await axios.get("http://localhost:3000/api/v1/user/bulk", {
         headers: {
           authorization: "Bearer " + localStorage.getItem("token")
         }

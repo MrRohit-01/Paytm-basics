@@ -27,11 +27,13 @@ const firstSchema = zod.string().min(5);
 router.get("/me", async (req, res) => {
   const auth = req.headers.authorization;
   const token = auth.split(" ")[1]
+
   try {
     const userEmail = jwt.decode(token);
     const userDetails = await User.findOne({
-      Email : userEmail.email
+      email : userEmail.email
     });
+
     res.json({
       userDetails,
     });
@@ -83,6 +85,7 @@ console.log("ddd")
 
 router.post("/signin", async (req, res) => {
   const body = req.body;
+  console.log(body)
   const { success } = signIn.safeParse(body);
   if (!success) {
     res.json({
@@ -91,6 +94,7 @@ router.post("/signin", async (req, res) => {
     res.end();
   }
   const user = await User.findOne({ email: body.email });
+  console.log(user)
   if (!user) {
     res.json({
       msg: "email doesn't exist signup first",
@@ -98,12 +102,18 @@ router.post("/signin", async (req, res) => {
     res.end();
   } else {
     const hashedPassword = await user.validatePassword(body.password);
-
+    console.log(hashedPassword)
     if (hashedPassword) {
       const token = jwt.sign({ email: body.email }, JWT_SECRET);
-      return res.status(201).json({
-        token,
+    return res.json({
+       msg:"logged in",
+      token,
       });
+    }
+    else{
+      res.json({
+        msg:"wrong password"
+      })
     }
   }
 });
@@ -138,17 +148,10 @@ router.put("/update", authMiddleware, async (req, res) => {
   }
 });
 router.get("/bulk", authMiddleware, async (req, res) => {
-  const filter = req.query.filter || "";
-
-  // You should make string 'param' as ObjectId type. To avoid exception,
-  // the 'param' must consist of more than 12 characters.
 
   const filterData = await User.find({
-    $or: [
-      { firstName: new RegExp(".*" + filter + ".*") },
-      { lastName: new RegExp(".*" + filter + ".*") },
-    ],
-  });
+  email: { $ne: `${req.email}` }},{firstName:1,lastName:1,email:1});
+  console.log(filterData)
   let Alldata = [];
   filterData.map((data, index) => {
     Alldata[index] = {

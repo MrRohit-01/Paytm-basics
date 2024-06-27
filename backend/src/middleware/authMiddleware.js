@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
     const token = auth.split(" ")[1];
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
-      req.email = decoded.username;
+      req.email = decoded.email;
       next();
       
     } catch {
