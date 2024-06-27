@@ -68,7 +68,7 @@ export const SignUp = () => {
     </>
   );
   async function HandlerSignup(){
-    const response =await axios.post("https://paytm-basics.onrender.com/api/v1/api/v1/user/signup",{
+    const response =await axios.post("http://localhost:3000/api/v1/user/signup",{
       firstName,
       lastName,
       email,
