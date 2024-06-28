@@ -67,6 +67,11 @@ export const SignUp = () => {
       </div>
     </>
   );
+
+
+
+
+  
   async function HandlerSignup(){
     const response =await axios.post("http://localhost:3000/api/v1/user/signup",{
       firstName,

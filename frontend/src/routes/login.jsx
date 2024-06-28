@@ -50,6 +50,8 @@ export const LogIn = ()=>{
     });
     console.log(response)
 
+
+    
     if(response.data.token){
       navigate("/dashboard")
       localStorage.setItem("token",response.data.token)
