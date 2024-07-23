@@ -37,7 +37,7 @@ export const LogIn = ()=>{
              <ButtonSumit label={"Login"} onClick={HandlerLogin}/>
             </div></div>
           </div>
-          <Warning text={"Don't have an account?"} button={'Sign Up'} path={"/"}/>
+          <Warning text={"Don't have an account?"} button={'Sign Up'} path={"/signup"}/>
         </div>
       </div>
     </>
