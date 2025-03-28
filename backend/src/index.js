@@ -6,12 +6,9 @@ const userRouter = require("./routes/user")
 const accountRouter = require("./routes/account.js")
  app.use(express.json())
  app.use(cors())
- router.get("/",(req,res)=>{
-    res.json({
-      msg:"this is index"
-    })
-  })
-app.use("/api/v1",routerSchema);
+
+ 
+app.use("/",routerSchema);
 app.use("/api/v1/user",userRouter);
 app.use("/api/v1/account",accountRouter);
 
