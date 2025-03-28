@@ -73,12 +73,11 @@ export const SignUp = () => {
 
   
   async function HandlerSignup(){
-    const response =await axios.post("http://localhost:3000/api/v1/user/signup",{
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`, {
       firstName,
       lastName,
       email,
       password
-      
     });
     if(response.data.token){
     localStorage.clear();

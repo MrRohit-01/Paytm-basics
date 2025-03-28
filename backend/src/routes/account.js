@@ -19,46 +19,42 @@ router.get("/balance", authMiddleware, async (req, res) => {
 });
 
 router.post("/transfer", authMiddleware, async (req, res) => {
-  const toId = req.body.to;
-  const amount = req.body.amount;
+  const { to, amount } = req.body;
   const email = req.email;
 
-  if (typeof toId !== "string" || typeof amount !== "string") {
-    res.json({
-      message: "Invalid Inputs",
-    });
+  if (typeof to !== "string" || typeof amount !== "number" || amount <= 0) {
+    return res.status(400).json({ message: "Invalid Inputs" });
   }
 
   const session = await mongoose.startSession();
+  session.startTransaction();
   try {
-    session.startTransaction();
-    const user = await User.findOne({ email: email }).session(session);
-    const fromAccount = await Account.findOne({ userId: user._id }).session(
-      session
-    );
-    const toAccount = await Account.findOne({ userId: toId }).session(session);
+    const user = await User.findOne({ email }).session(session);
+    const fromAccount = await Account.findOne({ userId: user._id }).session(session);
+    const toAccount = await Account.findOne({ userId: to }).session(session);
 
-    if (fromAccount.balance >= amount) {
-      await Account.findByIdAndUpdate(fromAccount._id, {
-        $inc: { balance: -amount },
-      });
-      await Account.findByIdAndUpdate(toAccount._id, {
-        $inc: { balance: amount },
-      });
-      res.json({
-        message: "Transfer successful",
-      });
-      await session.commitTransaction();
-    } else {
-      res.json({
-        message: "Insufficient balance",
-      });
+    if (!fromAccount || !toAccount) {
+      throw new Error("Accounts not found");
     }
-  } catch (e) {
-    console.log(e);
+
+    if (fromAccount.balance < amount) {
+      throw new Error("Insufficient balance");
+    }
+
+    fromAccount.balance -= amount;
+    toAccount.balance += amount;
+
+    await fromAccount.save({ session });
+    await toAccount.save({ session });
+
+    await session.commitTransaction();
+    res.json({ message: "Transfer successful" });
+  } catch (error) {
     await session.abortTransaction();
+    res.status(500).json({ message: error.message });
   } finally {
-    await session.endSession();
+    session.endSession();
   }
 });
+
 module.exports = router;
