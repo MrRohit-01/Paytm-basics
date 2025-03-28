@@ -47,7 +47,7 @@ export const LogIn = ()=>{
       email,
       password
     });
-    console.log(response)
+   
 
 
     

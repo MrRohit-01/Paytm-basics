@@ -9,9 +9,8 @@ const router = Router();
 
 router.get("/balance", authMiddleware, async (req, res) => {
   const email = req.email;
-  console.log(email)
   const user = await User.findOne({ email: email });
-  console.log(user)
+
   const account = await Account.findOne({ userId: user._id });
   res.json({
     balance: account.balance,

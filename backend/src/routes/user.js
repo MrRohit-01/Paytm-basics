@@ -38,21 +38,21 @@ router.get("/me", async (req, res) => {
       userDetails,
     });
   } catch (e) {
-    console.log(e);
+
   }
 });
 
 router.post("/signup", async (req, res) => {
   const body = req.body;
   const { success } = signUp.safeParse(body);
-  console.log(success)
+
   if (!success) {
     res.json({
       msg: "Enter vaild details",
     });
     return;  
   }
-console.log("ddd")
+
   const existUser = await User.findOne({ email: body.email });
   if (existUser) {
     res.json({
@@ -85,7 +85,7 @@ console.log("ddd")
 
 router.post("/signin", async (req, res) => {
   const body = req.body;
-  console.log(body)
+ 
   const { success } = signIn.safeParse(body);
   if (!success) {
     res.json({
@@ -94,7 +94,7 @@ router.post("/signin", async (req, res) => {
     res.end();
   }
   const user = await User.findOne({ email: body.email });
-  console.log(user)
+
   if (!user) {
     res.json({
       msg: "email doesn't exist signup first",
@@ -102,7 +102,7 @@ router.post("/signin", async (req, res) => {
     res.end();
   } else {
     const hashedPassword = await user.validatePassword(body.password);
-    console.log(hashedPassword)
+
     if (hashedPassword) {
       const token = jwt.sign({ email: body.email }, JWT_SECRET);
     return res.json({
@@ -151,7 +151,7 @@ router.get("/bulk", authMiddleware, async (req, res) => {
 
   const filterData = await User.find({
   email: { $ne: `${req.email}` }},{firstName:1,lastName:1,email:1});
-  console.log(filterData)
+
   let Alldata = [];
   filterData.map((data, index) => {
     Alldata[index] = {
