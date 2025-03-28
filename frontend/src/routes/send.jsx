@@ -54,17 +54,17 @@ export const TransferMoney = () => {
   );
   async function response() {
     const responseData = await axios.post(
-      "https://paytm-basics.onrender.com/api/v1/account/transfer",
+      `${import.meta.env.VITE_BACKEND_URL}/account/transfer`,
       {
-        to:toId,
-        amount: amount
-      },{
-        headers:{
-          Authorization: ("Bearer "+localStorage.getItem("token"))
+        to: toId,
+        amount: Number(amount) // Ensure amount is sent as a number
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
         }
       }
     );
-    alert(responseData.data.message)
-   
+    alert(responseData.data.message);
   }
 };
