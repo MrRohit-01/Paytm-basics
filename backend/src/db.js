@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const bcrypt = require("bcrypt");
 
-mongoose.connect(process.env.db_url).then(()=>{
+mongoose.connect(process.env.DB_URL).then(()=>{
   console.log("connected sucessfully")
 }).catch((e)=>{
   console.log(e)
